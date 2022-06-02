@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HoteRequest;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -17,5 +18,13 @@ class HotelController extends Controller
         return view('hotel.index', [
             'hotel' => $hotel
         ]);
+    }
+
+    public function updateHotel(HoteRequest $request)
+    {
+        $hotel = auth()->user()->hotel()->first();
+        $hotel->update($request->withUploadingImage());
+
+        return redirect()->route('user.hotel');
     }
 }

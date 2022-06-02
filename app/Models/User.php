@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,8 +43,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function booted()
+    {
+        static::created(function ($model) {
+            if ($model->role === 'admin_manager') {
+                $model->hotel()->create();
+            }
+        });
+    }
+
     public function hotel()
     {
         return $this->hasOne(Hotel::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(RoomCategory::class);
     }
 }
