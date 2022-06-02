@@ -25,7 +25,7 @@
 
                 <div class="mb-3">
                     <label for="image">L'image de votre hotel</label>
-                    <input type="file" id="image" name="image" class="form-control" required>
+                    <input type="file" id="image" name="image" class="form-control" @if(!$hotel->image_path) required @endif>
                 </div>
 
                 <div class="mb-3">

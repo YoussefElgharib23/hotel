@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class HoteRequest extends FormRequest
 {
@@ -32,7 +34,7 @@ class HoteRequest extends FormRequest
                 'unique:hotels,name,' . $hotel->id . ',id'
             ],
             'image' => [
-                'required',
+                ValidationRule::when(!$hotel->image_path, 'required'),
                 'image',
                 'max:30000'
             ]
@@ -42,7 +44,11 @@ class HoteRequest extends FormRequest
     public function withUploadingImage()
     {
         $image = $this->file('image');
-        $image_path = $image->store('hotels', 'public');
+        if ($this->hasFile('image')) {
+            $image_path = $image->store('hotels', 'public');
+        } else {
+            $image_path = auth()->user()->hotel()->first()->image_path;
+        }
 
         return [
             ...$this->except('_token', 'image'),

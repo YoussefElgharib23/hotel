@@ -125,35 +125,19 @@
 
             <ul>
                 <li>
-                    <a href="{{ route('user.hotel') }}" class="sidebar-link">
+                    <a href="{{ route('admin.users.index') }}" class="sidebar-link">
                         <div class="icon-container">
-                            <i class="fas fa-hotel me-2"></i>
+                            <i class="fas fa-users me-2"></i>
                         </div>
-                        <span>Hotel</span>
+                        <span>Les utitlisateurs</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('user.categories.index') }}" class="sidebar-link">
                         <div class="icon-container">
-                            <i class="fas fa-grip-vertical me-2"></i>
+                            <i class="fas fa-message me-2"></i>
                         </div>
-                        <span>Les categories</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('user.rooms.index') }}" class="sidebar-link">
-                        <div class="icon-container">
-                            <i class="fas fa-person-booth me-2"></i>
-                        </div>
-                        <span>Les chambres</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('user.reserations.index') }}" class="sidebar-link">
-                        <div class="icon-container">
-                            <i class="fas fa-restroom me-2"></i>
-                        </div>
-                        <span>Les reservations</span>
+                        <span>Contact us</span>
                     </a>
                 </li>
             </ul>
@@ -161,13 +145,6 @@
         </div>
 
         <div class="mt-4" style="padding-left: 300px;">
-            @if (auth()->user()->hotel()->first()->name === '')
-            <div class="container">
-                <div class="alert alert-warning">
-                    Veuillez metter a jour votre hotel <a href="{{ route('user.hotel') }}">ici</a>
-                </div>
-            </div>
-            @endif
             {{ $slot }}
         </div>
 
