@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(RoomCategory::class);
     }
+
+    public function rooms()
+    {
+        return $this->hasManyThrough(Room::class, Hotel::class, 'user_id', 'hotel_id');
+    }
 }
