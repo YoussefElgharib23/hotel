@@ -26,7 +26,11 @@
                                 <i class="fas fa-edit"></i>
                                 <span>Edit</span>
                             </a>
-                            <a href="#" class="btn btn-danger">
+                            <form class="d-none" id="delete-{{ $category->id }}" action="{{ route('user.categories.destroy', $category) }}" onsubmit="return confirm('Etes-vous sur de suppimer la categorie ?')" method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                            <a href="javascript:;" onclick="$('#delete-{{ $category->id }}').submit()" class="btn btn-danger">
                                 <i class="fas fa-trash-alt"></i>
                                 <span>Delete</span>
                             </a>

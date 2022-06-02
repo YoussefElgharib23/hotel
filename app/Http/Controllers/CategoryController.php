@@ -11,7 +11,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('category.index', [
-            'categories' => auth()->user()->categories()->paginate()
+            'categories' => auth()->user()->categories()->latest('id')->paginate()
         ]);
     }
 
@@ -29,6 +29,12 @@ class CategoryController extends Controller
     public function update(CategryRequest $request, RoomCategory $category)
     {
         $category->update($request->validated());
+        return redirect()->route('user.categories.index');
+    }
+
+    public function destroy(RoomCategory $category)
+    {
+        $category->delete();
         return redirect()->route('user.categories.index');
     }
 }
