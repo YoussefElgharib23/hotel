@@ -8,12 +8,14 @@ class HotelController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'user']);
+        $this->middleware(['auth', 'admin_manager']);
     }
 
-    public function index()
+    public function userHotel()
     {
-        $hote = auth()->user()->hotel()->first();
-        return view('hotel.index');
+        $hotel = auth()->user()->hotel()->first();
+        return view('hotel.index', [
+            'hotel' => $hotel
+        ]);
     }
 }

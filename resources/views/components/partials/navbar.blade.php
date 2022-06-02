@@ -16,23 +16,46 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 @auth
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img style="width: 30px; border-radius: 50%;"
-                                src="https://avatars.dicebear.com/api/initials/{{ auth()->user()->name }}.svg" alt="">
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li>
-                                <form action="logout" id="logout-form" class="d-none" method="POST">
-                                    @csrf
-                                </form>
-                                <a class="dropdown-item" href="javascript:;"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
+                    @if (auth()->user()->role === 'admin_manager')
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img style="width: 30px; border-radius: 50%;"
+                                    src="https://avatars.dicebear.com/api/initials/{{ auth()->user()->name }}.svg" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('user.hotel') }}">Mon hotel</a>
+                                </li>
+                                <li>
+                                    <form action="logout" id="logout-form" class="d-none" method="POST">
+                                        @csrf
+                                    </form>
+                                    <a class="dropdown-item" href="javascript:;"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
 
-                            </li>
-                        </ul>
-                    </li>
+                                </li>
+                            </ul>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img style="width: 30px; border-radius: 50%;"
+                                    src="https://avatars.dicebear.com/api/initials/{{ auth()->user()->name }}.svg" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                <li>
+                                    <form action="logout" id="logout-form" class="d-none" method="POST">
+                                        @csrf
+                                    </form>
+                                    <a class="dropdown-item" href="javascript:;"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
+
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                 @else
                     <li class="nav-item">
                         <a class="btn btn-primary" aria-current="page" href="{{ route('login') }}">Login</a>
